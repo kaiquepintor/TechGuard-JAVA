@@ -34,7 +34,7 @@ public class ClienteResource {
     // GET - Cliente específico
     @GET
     @Path("/{id}")
-    public Response getCliente(@PathParam("id") int id) {
+    public Response getCliente(@PathParam("id") String id) {
         Cliente cliente = clienteDAO.pesquisarPorId(id);
         if (cliente != null) {
             System.out.println("Cliente:\n" + cliente.toString());
@@ -56,7 +56,7 @@ public class ClienteResource {
     // PUT - Atualizar cliente
     @PUT
     @Path("/{id}")
-    public Response atualizarCliente(@PathParam("id") int id, Cliente clienteAtualizado) {
+    public Response atualizarCliente(@PathParam("id") String id, Cliente clienteAtualizado) {
         Cliente cliente = clienteDAO.pesquisarPorId(id);
         if (cliente != null) {
 
@@ -78,7 +78,7 @@ public class ClienteResource {
     // DELETE - Remover cliente
     @DELETE
     @Path("/{id}")
-    public Response removerCliente(@PathParam("id") int id) {
+    public Response removerCliente(@PathParam("id") String id) {
         Cliente cliente = clienteDAO.pesquisarPorId(id);
         if (cliente != null) {
             clienteDAO.remover(id);

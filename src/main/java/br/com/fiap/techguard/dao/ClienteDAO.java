@@ -71,13 +71,13 @@ public class ClienteDAO {
     }
 
     // Método de pesquisar por ID
-    public Cliente pesquisarPorId(int id) {
+    public Cliente pesquisarPorId(String id) {
         Cliente cliente = null;
         String sql = "SELECT * FROM T_CP_CLIENTE WHERE id = ?";
         try (Connection connection = ConnectionFactory.getConnection();
              PreparedStatement stmt = connection.prepareStatement(sql)) {
 
-            stmt.setInt(1, id);
+            stmt.setString(1, id);
             try (ResultSet rs = stmt.executeQuery()) {
                 if (rs.next()) {
                     cliente = new Cliente();
@@ -116,13 +116,13 @@ public class ClienteDAO {
         }
     }
 
-    // Método de revover cliente
-    public void remover(int id) {
+    // Método de remover cliente
+    public void remover(String id) {
         String sql = "DELETE FROM T_CP_CLIENTE WHERE id = ?";
         try (Connection connection = ConnectionFactory.getConnection();
              PreparedStatement stmt = connection.prepareStatement(sql)) {
 
-            stmt.setInt(1, id);
+            stmt.setString(1, id);
             stmt.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();

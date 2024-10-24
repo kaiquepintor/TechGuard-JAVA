@@ -1,4 +1,4 @@
-package br.com.fiap;
+package br.com.fiap.techguard.view;
 
 import org.glassfish.grizzly.http.server.HttpServer;
 import org.glassfish.jersey.grizzly2.httpserver.GrizzlyHttpServerFactory;
