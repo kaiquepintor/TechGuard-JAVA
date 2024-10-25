@@ -2,11 +2,7 @@ package br.com.fiap.techguard.dao;
 
 import br.com.fiap.techguard.model.Cliente;
 import br.com.fiap.techguard.factory.ConnectionFactory;
-
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -19,17 +15,20 @@ public class ClienteDAO {
 
         try {
             conexao = ConnectionFactory.getConnection();
+            String sql = "INSERT INTO T_CP_CLIENTE (NOME, TELEFONE, CPF, EMAIL, SENHA) VALUES (?, ?, ?, ?, ?)";
+            stmt = conexao.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
 
-            String sql = "INSERT INTO T_CP_CLIENTE (ID, NOME, TELEFONE, CPF, EMAIL, SENHA) VALUES (DEFAULT, ?, ?, ?, ?, ?)";
-
-            stmt = conexao.prepareStatement(sql);
             stmt.setString(1, cliente.getNome());
             stmt.setString(2, cliente.getTelefone());
             stmt.setString(3, cliente.getCpf());
             stmt.setString(4, cliente.getEmail());
             stmt.setString(5, cliente.getSenha());
-
             stmt.executeUpdate();
+
+            ResultSet generatedKeys = stmt.getGeneratedKeys();
+            if (generatedKeys.next()) {
+                cliente.setId(generatedKeys.getString(1));
+            }
 
             System.out.println("Cliente cadastrado com sucesso!");
 
